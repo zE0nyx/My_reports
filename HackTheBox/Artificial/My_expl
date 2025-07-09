@@ -1,0 +1,46 @@
+Start >> Jul 7 16:20
+----------------------
+IP addr: 10.10.11.74
+----------------------
+
+Recon >> 
+	nmap:
+	ports: 22, 80
+
+	ffuf:
+	(200)login, (200)register, (302)logout, (302)dashboard
+
+1. Add 'artificial.htb' to hosts file
+	`echo "<IP_ADDR> artificial.htb" | sudo tee -a /etc/hosts > /dev/null`
+
+2. Scroll below and save the python model(artificialAI.py) code given in the website.
+
+3. Register an account and login.
+
+4. Download the DockerFile and build it.
+	docker buildx build -f Dockerfile .
+
+5. Run the docker image, there is a file `tensorflow_cpu-2.13.1-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl` in the `/code` dir.
+
+6. Copy the file to attacking machine using 
+	`sudo docker cp <Image ID>:/code/tensorflow_cpu-2.13.1-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl .`
+
+7. Install the file in a python virtual env. The tensorflow version is only compitable with python3.8. Download it using the `EnvP38.sh`.
+
+8. Run the artififialAI.py to get the model 'profits_model.h5' as output.
+
+9. After uploading the models file there is new feature of 'View Predictions' click on it and see th URL pointing towards a new endpoint `/run_model`. 
+So there might be somewhere the code is being processed into the backend.
+
+10. After googling a bit I stumbled upon:
+	`https://splint.gitbook.io/cyberblog/security-research/tensorflow-remote-code-execution-with-malicious-model`
+	It is clearly explained here what to do and how to form a exploit in the tensorflow and exploit *The Lamda Layer*.
+
+11. So the exploit has been crafted in `exploit.py` and it was executed in the python virtual environment. And `exploit.h5` is recieved.
+
+12. Upload the exploit and open a netcat port for listening incoming request:
+	`nc -lvnp 4444`
+	Once uploaded and the nc is running click on `View Predictations`.
+
+13. From the recieved connection open `app.py`. There will be a secret key in the source code:
+	`app.secret_key = "Sup3rS3cr3tKey4rtIfici4L"`
