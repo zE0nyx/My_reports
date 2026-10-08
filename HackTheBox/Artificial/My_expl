@@ -43,7 +43,7 @@ So there might be somewhere the code is being processed into the backend.
 	Once uploaded and the nc is running click on `View Predictations`.
 
 13. From the recieved connection open `app.py`. There will be a secret key in the source code:
-	`app.secret_key = "Sup3rS3cr3tKey4rtIfici4L"`
+	`app.secret_key = "************************"`
 
 14. On further inspection it is found there is a sqlite server running named "users.db". On inspection of the database users table and the user credentials can be found in that.
 
