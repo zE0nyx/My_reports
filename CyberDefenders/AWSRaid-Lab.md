@@ -13,7 +13,7 @@ index="aws_cloudtrail" eventSource="signin.amazonaws.com" errorMessage="Failed a
 
 <details>
 <summary><b>Answer<b></summary>
-```text
+```
 helpdesk.luke
 ```
 </details>
@@ -30,7 +30,7 @@ index="aws_cloudtrail" eventSource="s3.amazonaws.com" userIdentity.userName="hel
 
 <details>
 <summary><b>Answer<b></summary>
-```text
+```
 2023-11-02 09:55
 ```
 </details>
@@ -47,7 +47,7 @@ index="aws_cloudtrail" eventSource="s3.amazonaws.com" userIdentity.userName="hel
 
 <details>
 <summary><b>Answer<b></summary>
-```text
+```
 product-designs-repository31183937
 ```
 </details>
@@ -65,7 +65,7 @@ index="aws_cloudtrail" eventSource="s3.amazonaws.com" userIdentity.userName="hel
 
 <details>
 <summary><b>Answer<b></summary>
-```text
+```
 backup-and-restore98825501
 ```
 </details>
@@ -82,7 +82,7 @@ index="aws_cloudtrail" eventSource="iam.amazonaws.com" userIdentity.userName="he
 
 <details>
 <summary><b>Answer<b></summary>
-```text
+```
 marketing.mark
 ```
 </details>
@@ -99,7 +99,7 @@ index="aws_cloudtrail" eventSource="iam.amazonaws.com" userIdentity.userName="he
 
 <details>
 <summary><b>Answer<b></summary>
-```text
+```
 Admins
 ```
 </details>
