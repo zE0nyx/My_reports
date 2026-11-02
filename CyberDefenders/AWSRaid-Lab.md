@@ -11,7 +11,7 @@ Your organization utilizes AWS to host critical data and applications. An incide
 index="aws_cloudtrail" eventSource="signin.amazonaws.com" errorMessage="Failed authentication" | stats count by userIdentity.userName | sort -count
 ```
 
-<b>Answer<b>
+<b>Answer: <b>
 ```text
 helpdesk.luke
 ```
@@ -26,7 +26,7 @@ index="aws_cloudtrail" eventSource="s3.amazonaws.com" userIdentity.userName="hel
 | table _time, eventName, requestParameters.bucketName, requestParameteters.key, userIdentity.arn
 ```
 
-<b>Answer<b>>
+<b>Answer: <b>
 ```text
 2023-11-02 09:55
 ```
