@@ -11,12 +11,10 @@ Your organization utilizes AWS to host critical data and applications. An incide
 index="aws_cloudtrail" eventSource="signin.amazonaws.com" errorMessage="Failed authentication" | stats count by userIdentity.userName | sort -count
 ```
 
-<details>
-<summary><b>Answer<b></summary>
-```
+<b>Answer<b>
+```text
 helpdesk.luke
 ```
-</details>
 
 
 ### Q2 - Attacker Timestamp
@@ -28,12 +26,10 @@ index="aws_cloudtrail" eventSource="s3.amazonaws.com" userIdentity.userName="hel
 | table _time, eventName, requestParameters.bucketName, requestParameteters.key, userIdentity.arn
 ```
 
-<details>
-<summary><b>Answer<b></summary>
-```
+<b>Answer<b>>
+```text
 2023-11-02 09:55
 ```
-</details>
 
 
 ### Q3 - S3 bucket name with DWG file
@@ -45,12 +41,10 @@ index="aws_cloudtrail" eventSource="s3.amazonaws.com" userIdentity.userName="hel
 | table _time, requestParameters.bucketName, requestParameters.key
 ```
 
-<details>
-<summary><b>Answer<b></summary>
-```
+<b>Answer: <b>
+```text
 product-designs-repository31183937
 ```
-</details>
 
 
 ### Q4 - Misconfigured S3 bucket
@@ -63,12 +57,10 @@ index="aws_cloudtrail" eventSource="s3.amazonaws.com" userIdentity.userName="hel
 | sort _time
 ```
 
-<details>
-<summary><b>Answer<b></summary>
-```
+<b>Answer: <b>
+```text
 backup-and-restore98825501
 ```
-</details>
 
 
 ### Q5 - Username creation by attacker
@@ -80,12 +72,10 @@ index="aws_cloudtrail" eventSource="iam.amazonaws.com" userIdentity.userName="he
 | table requestParameters.userName
 ```
 
-<details>
-<summary><b>Answer<b></summary>
-```
+<b>Answer: <b>
+```text
 marketing.mark
 ```
-</details>
 
 
 ### Q6 - User group
@@ -97,9 +87,7 @@ index="aws_cloudtrail" eventSource="iam.amazonaws.com" userIdentity.userName="he
 | table requestParameters.groupName, requestParameters.userName
 ```
 
-<details>
-<summary><b>Answer<b></summary>
-```
+<b>Answer: <b>
+```text
 Admins
 ```
-</details>
