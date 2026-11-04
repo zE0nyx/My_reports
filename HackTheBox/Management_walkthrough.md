@@ -16,11 +16,13 @@ A normal user can run a vulnerable `rdiff-backup` command with elevated priviled
 
 
 ## Scanning and Enumeration
+```bash
 22/tcp    open  ssh      OpenSSH 9.6p1 Ubuntu 3ubuntu13.19 (Ubuntu Linux; protocol 2.0)
 80/tcp    open  http     nginx 1.24.0 (Ubuntu)
 443/tcp   open  ssl/http nginx 1.24.0 (Ubuntu)
 4444/tcp  open  ssl/ldap
 50389/tcp open  ldap     (Anonymous bind OK)
+```
 
 
 ## My Walkthrough:
