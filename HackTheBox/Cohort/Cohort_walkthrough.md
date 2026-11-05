@@ -70,7 +70,7 @@ Response:
 ```
 8. I got the version and just googling it gave me an exploit `CVE-2026-39987`.
 > Context: This vulnerability exists in the marimo server where the Terminal WebSocket endpoint `/terminal/ws` is missing Authentication which means any unauthenticated user can send request, get a shell and execute commands on the remote server.
-9. The exploit was simple to create to I created my own exploit `CVE-2026-39987-exploit.py` and tried to connect to the server using nc listener
+9. The exploit was simple to create to I created my own exploit <a href="https://github.com/zE0nyx/My_reports/blob/main/HackTheBox/Cohort/CVE-2026-39987-exploit.py">CVE-2026-39987-exploit.py</a> and tried to connect to the server using nc listener
 ```bash
 nc -lnvp 4444
 ```
